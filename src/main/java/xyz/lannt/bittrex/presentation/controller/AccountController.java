@@ -3,6 +3,7 @@ package xyz.lannt.bittrex.presentation.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import xyz.lannt.bittrex.application.service.AccountService;
@@ -17,5 +18,10 @@ public class AccountController {
   @RequestMapping("/balance")
   public ResponseEntity<?> getBalance() {
     return ResponseEntity.ok(accountService.getBalances());
+  }
+
+  @RequestMapping("/balance/{currency}")
+  public ResponseEntity<?> getBalance(@PathVariable String currency) {
+    return ResponseEntity.ok(accountService.getBalance(currency));
   }
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import xyz.lannt.bittrex.application.client.BittrexMarketClient;
+import xyz.lannt.bittrex.application.exception.BittrexClientException;
 import xyz.lannt.bittrex.domain.model.BittrexBalances;
 import xyz.lannt.bittrex.presentation.dto.BalanceDto;
 
@@ -19,5 +20,12 @@ public class AccountService {
     return BittrexBalances.fromLinkedTreeMap(bittrexMarketClient.getBalances().result)
         .removeEmpty()
         .toDtoes();
+  }
+
+  public BalanceDto getBalance(String currency) {
+    return BittrexBalances.fromLinkedTreeMap(bittrexMarketClient.getBalances().result)
+        .find(currency)
+        .orElseThrow(() -> new BittrexClientException("currency not found!!"))
+        .toDto();
   }
 }

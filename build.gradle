@@ -28,6 +28,7 @@ dependencies {
 	  'org.springframework.boot:spring-boot-starter-web',
 	  'com.google.code.gson:gson:2.7',
 	  'org.projectlombok:lombok:1.16.18',
+	  'org.apache.commons:commons-lang3:3.6',
 	)
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
