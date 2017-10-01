@@ -4,25 +4,23 @@ import java.math.BigDecimal;
 
 import org.springframework.util.ObjectUtils;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class CryptoValue {
 
-  private BigDecimal value;
+  private final BigDecimal value;
 
   public static CryptoValue create(String value) {
-    CryptoValue result = new CryptoValue();
     try {
-      result.value = BigDecimal.valueOf(Double.parseDouble(value));
+      return new CryptoValue(BigDecimal.valueOf(Double.parseDouble(value)));
     } catch (Exception e) {
-      result.value = BigDecimal.ZERO;
+      return new CryptoValue(BigDecimal.ZERO);
     }
-
-    return result;
   }
 
   public static CryptoValue create(Double value) {
-    CryptoValue result = new CryptoValue();
-    result.value = BigDecimal.valueOf(value);
-    return result;
+    return new CryptoValue(BigDecimal.valueOf(value));
   }
 
   public static CryptoValue create(Object value) {
@@ -43,6 +41,14 @@ public class CryptoValue {
 
   public boolean isGreaterThanZero() {
     return value.compareTo(BigDecimal.ZERO) > 0;
+  }
+
+  public CryptoValue multiply(CryptoValue target) {
+    return new CryptoValue(value.multiply(target.value));
+  }
+
+  public CryptoValue subtract(CryptoValue target) {
+    return new CryptoValue(value.subtract(target.value));
   }
 
   @Override

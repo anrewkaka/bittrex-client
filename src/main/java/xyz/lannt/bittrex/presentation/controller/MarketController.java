@@ -25,4 +25,9 @@ public class MarketController {
   public ResponseEntity<?> getSummary(@PathVariable String market) {
     return ResponseEntity.ok(marketService.getSummary(market));
   }
+
+  @RequestMapping(value = "/compare", method = RequestMethod.GET)
+  public ResponseEntity<?> compare(String base, String source, String target) {
+    return ResponseEntity.ok(marketService.getCompare(base, source, target));
+  }
 }

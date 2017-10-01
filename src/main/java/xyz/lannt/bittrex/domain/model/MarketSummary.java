@@ -23,14 +23,17 @@ public class MarketSummary {
 
   private CryptoValue volume;
 
+  @Getter
   private CryptoValue last;
 
   private CryptoValue baseVolume;
 
   private CryptoTimestamp timestamp;
 
+  @Getter
   private CryptoValue bid;
 
+  @Getter
   private CryptoValue ask;
 
   private CryptoValue openBuyOrders;
