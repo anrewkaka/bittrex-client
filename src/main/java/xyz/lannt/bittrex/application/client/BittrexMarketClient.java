@@ -9,8 +9,7 @@ import com.google.gson.Gson;
 
 import xyz.lannt.bittrex.application.client.request.BittrexMarketRequest;
 import xyz.lannt.bittrex.application.client.request.MarketRequest;
-import xyz.lannt.bittrex.application.client.response.MarketResponse;
-import xyz.lannt.bittrex.application.client.response.bittrex.BittrexResponse;
+import xyz.lannt.bittrex.application.client.response.bittrex.BittrexBalancesResponse;
 import xyz.lannt.bittrex.application.exception.BittrexClientException;
 import xyz.lannt.bittrex.utils.EncryptionUtility;
 
@@ -25,9 +24,9 @@ public class BittrexMarketClient implements MarketClient {
   @Autowired
   private Gson gson;
 
-  private HttpHeaders createHeaders() {
+  private HttpHeaders createHeaders(String url) {
     HttpHeaders headers = new HttpHeaders();
-    headers.add("apisign", EncryptionUtility.calculateHash(setting.getSercretKey(), setting.getBaseUrl(), "HmacSHA512"));
+    headers.add("apisign", EncryptionUtility.buildHmacSignature(url, setting.getSercretKey()));
     return headers;
   }
 
@@ -45,10 +44,16 @@ public class BittrexMarketClient implements MarketClient {
     return url;
   }
 
-  public MarketResponse getBalances() {
-    BittrexMarketRequest request = new BittrexMarketRequest(setting.getApiKey());
-    String response = request(createUrl("account/getbalances", request), createHeaders(), HttpMethod.GET, request);
-    return gson.fromJson(response, BittrexResponse.class);
+  private String request(BittrexMarketRequest request) {
+    if (request == null) {
+      request = new BittrexMarketRequest(setting.getApiKey());
+    }
+    String url = createUrl("account/getbalances", request);
+    return request(url, createHeaders(url), HttpMethod.GET, request);
+  }
+
+  public BittrexBalancesResponse getBalances() {
+    return gson.fromJson(this.request(null), BittrexBalancesResponse.class);
   }
 
 }

@@ -21,6 +21,6 @@ public class BittrexMarketRequest implements MarketRequest {
 
   public BittrexMarketRequest(String apiKey) {
     this.apiKey = apiKey;
-    nonce = String.valueOf(System.currentTimeMillis() % 1000);//EncryptionUtility.generateNonce();
+    nonce = String.valueOf(System.currentTimeMillis());//EncryptionUtility.generateNonce();
   }
 }
