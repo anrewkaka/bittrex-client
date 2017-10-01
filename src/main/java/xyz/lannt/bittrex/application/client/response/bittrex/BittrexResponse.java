@@ -1,8 +1,10 @@
 package xyz.lannt.bittrex.application.client.response.bittrex;
 
+import lombok.AllArgsConstructor;
 import xyz.lannt.bittrex.application.client.response.MarketResponse;
 
-public abstract class BittrexResponse implements MarketResponse {
+@AllArgsConstructor
+public class BittrexResponse implements MarketResponse {
 
   public Boolean success;
 

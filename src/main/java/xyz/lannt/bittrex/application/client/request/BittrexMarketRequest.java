@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import xyz.lannt.bittrex.application.client.annotation.MarketQueryParam;
-import xyz.lannt.bittrex.utils.EncryptionUtility;
 
 @Data
 @Builder
@@ -22,6 +21,6 @@ public class BittrexMarketRequest implements MarketRequest {
 
   public BittrexMarketRequest(String apiKey) {
     this.apiKey = apiKey;
-    nonce = EncryptionUtility.generateNonce();
+    nonce = String.valueOf(System.currentTimeMillis() % 1000);//EncryptionUtility.generateNonce();
   }
 }

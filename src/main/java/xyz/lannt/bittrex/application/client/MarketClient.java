@@ -3,11 +3,13 @@ package xyz.lannt.bittrex.application.client;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 import xyz.lannt.bittrex.application.client.request.MarketRequest;
+import xyz.lannt.bittrex.application.exception.BittrexClientException;
 
 public interface MarketClient {
 
@@ -17,6 +19,10 @@ public interface MarketClient {
     restTemplate.setRequestFactory(new SimpleClientHttpRequestFactory());
 
     ResponseEntity<String> response = restTemplate.exchange(url, method, new HttpEntity<>(headers), String.class);
+    if (response.getStatusCode() != HttpStatus.OK) {
+      throw new BittrexClientException();
+    }
+
     return response.getBody();
   }
 }

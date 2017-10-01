@@ -8,6 +8,10 @@ public class BittrexClientException extends RuntimeException {
     super();
   }
 
+  public BittrexClientException(String message) {
+    super(message);
+  }
+
   public BittrexClientException(Throwable cause) {
     super(cause);
   }
