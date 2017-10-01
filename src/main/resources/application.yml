@@ -1,3 +1,6 @@
+server:
+  port: 8081
+
 # MARKET
 bittrex:
   baseUrl: https://bittrex.com/api/v1.1/
