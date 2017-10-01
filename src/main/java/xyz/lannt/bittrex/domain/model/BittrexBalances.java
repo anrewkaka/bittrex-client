@@ -9,9 +9,8 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.google.gson.internal.LinkedTreeMap;
-
 import lombok.AllArgsConstructor;
+import xyz.lannt.bittrex.application.client.response.bittrex.BittrexBalancesResponse;
 import xyz.lannt.bittrex.presentation.dto.BalanceDto;
 
 @AllArgsConstructor
@@ -19,8 +18,8 @@ public class BittrexBalances {
 
   private List<BittrexBalance> values;
 
-  public static BittrexBalances fromLinkedTreeMap(List<LinkedTreeMap<String, Object>> treeMap) {
-    return treeMap.stream()
+  public static BittrexBalances fromResponse(BittrexBalancesResponse response) {
+    return response.result.stream()
         .map(BittrexBalance::fromLinkedTreeMap)
         .collect(collectingAndThen(toList(), BittrexBalances::new));
   }

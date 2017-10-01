@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import xyz.lannt.bittrex.application.client.request.BittrexMarketRequest;
 import xyz.lannt.bittrex.application.client.request.MarketRequest;
 import xyz.lannt.bittrex.application.client.response.bittrex.BittrexBalancesResponse;
+import xyz.lannt.bittrex.application.client.response.bittrex.BittrexMarketSummariesResponse;
 import xyz.lannt.bittrex.application.exception.BittrexClientException;
 import xyz.lannt.bittrex.utils.EncryptionUtility;
 
@@ -44,16 +45,19 @@ public class BittrexMarketClient implements MarketClient {
     return url;
   }
 
-  private String request(BittrexMarketRequest request) {
+  private String request(String uri, BittrexMarketRequest request) {
     if (request == null) {
       request = new BittrexMarketRequest(setting.getApiKey());
     }
-    String url = createUrl("account/getbalances", request);
+    String url = createUrl(uri, request);
     return request(url, createHeaders(url), HttpMethod.GET, request);
   }
 
   public BittrexBalancesResponse getBalances() {
-    return gson.fromJson(this.request(null), BittrexBalancesResponse.class);
+    return gson.fromJson(this.request("account/getbalances", null), BittrexBalancesResponse.class);
   }
 
+  public BittrexMarketSummariesResponse getMarketSummaries() {
+    return gson.fromJson(this.request("public/getmarketsummaries", null), BittrexMarketSummariesResponse.class);
+  }
 }

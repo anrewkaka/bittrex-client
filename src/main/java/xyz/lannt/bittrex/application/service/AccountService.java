@@ -17,13 +17,13 @@ public class AccountService {
   private BittrexMarketClient bittrexMarketClient;
 
   public List<BalanceDto> getBalances() {
-    return BittrexBalances.fromLinkedTreeMap(bittrexMarketClient.getBalances().result)
+    return BittrexBalances.fromResponse(bittrexMarketClient.getBalances())
         .removeEmpty()
         .toDtoes();
   }
 
   public BalanceDto getBalance(String currency) {
-    return BittrexBalances.fromLinkedTreeMap(bittrexMarketClient.getBalances().result)
+    return BittrexBalances.fromResponse(bittrexMarketClient.getBalances())
         .find(currency)
         .orElseThrow(() -> new BittrexClientException("currency not found!!"))
         .toDto();
