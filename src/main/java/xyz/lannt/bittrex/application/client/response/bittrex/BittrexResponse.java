@@ -5,14 +5,21 @@ import java.util.List;
 import com.google.gson.internal.LinkedTreeMap;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import xyz.lannt.bittrex.application.client.response.MarketResponse;
 
 @AllArgsConstructor
 public class BittrexResponse implements MarketResponse {
 
-  public Boolean success;
+  @Getter
+  private Boolean success;
 
-  public String message;
+  @Getter
+  private String message;
 
-  public List<LinkedTreeMap<String, Object>> result;
+  private List<LinkedTreeMap<String, Object>> result;
+
+  public BittrexResults getResult() {
+    return new BittrexResults(result);
+  }
 }

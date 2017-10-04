@@ -21,9 +21,9 @@ public class MarketComapre {
         .base(base.toDto())
         .source(source.toDto())
         .target(target.toDto())
-        .last(base.getLast().multiply(source.getLast()).subtract(target.getLast()).doubleValue())
-        .bid(base.getBid().multiply(source.getBid()).subtract(target.getBid()).doubleValue())
-        .ask(base.getAsk().multiply(source.getAsk()).subtract(target.getAsk()).doubleValue())
+        .last(base.getLast().multiply(source.getLast()).subtract(target.getLast()))
+        .bid(base.getBid().multiply(source.getBid()).subtract(target.getBid()))
+        .ask(base.getAsk().multiply(source.getAsk()).subtract(target.getAsk()))
         .build();
   }
 }

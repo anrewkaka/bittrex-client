@@ -1,6 +1,7 @@
 package xyz.lannt.bittrex.presentation.dto;
 
 import lombok.Builder;
+import xyz.lannt.bittrex.domain.vo.CryptoValue;
 
 @Builder
 public class MarketCompareDto {
@@ -11,9 +12,9 @@ public class MarketCompareDto {
 
   public MarketSummaryDto target;
 
-  public Double last;
+  public CryptoValue last;
 
-  public Double bid;
+  public CryptoValue bid;
 
-  public Double ask;
+  public CryptoValue ask;
 }

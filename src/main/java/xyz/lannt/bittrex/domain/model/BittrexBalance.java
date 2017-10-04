@@ -1,44 +1,47 @@
 package xyz.lannt.bittrex.domain.model;
 
-import com.google.gson.internal.LinkedTreeMap;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import xyz.lannt.bittrex.application.client.annotation.BittrexResponseName;
+import xyz.lannt.bittrex.application.client.response.bittrex.BittrexResult;
+import xyz.lannt.bittrex.domain.vo.CryptoText;
 import xyz.lannt.bittrex.domain.vo.CryptoValue;
 import xyz.lannt.bittrex.presentation.dto.BalanceDto;
 
-@Data
-@Builder
-@AllArgsConstructor
+@NoArgsConstructor
 public class BittrexBalance {
 
-  private String currency;
+  @Getter
+  @BittrexResponseName("Currency")
+  private CryptoText currency;
 
+  @Getter
+  @BittrexResponseName("Balance")
   private CryptoValue balance;
 
+  @BittrexResponseName("Available")
   private CryptoValue available;
 
+  @BittrexResponseName("Pending")
   private CryptoValue pending;
 
-  private String address;
+  @BittrexResponseName("CryptoAddress")
+  private CryptoText address;
 
-  public static BittrexBalance fromLinkedTreeMap(LinkedTreeMap<String, Object> map) {
-    return BittrexBalance.builder()
-        .currency(String.valueOf(map.get("Currency")))
-        .balance(CryptoValue.create(map.get("Balance")))
-        .available(CryptoValue.create(map.get("Available")))
-        .pending(CryptoValue.create(map.get("Pending")))
-        .address(map.get("CryptoAddress") == null ? null : String.valueOf(map.get("CryptoAddress")))
-        .build();
+  public static BittrexBalance fromResult(BittrexResult result) {
+    return result.toModel(BittrexBalance.class);
+  }
+
+  public String getMarketName(String baseCurrency) {
+    return String.join("-", baseCurrency, currency.toString());
   }
 
   public BalanceDto toDto() {
     return BalanceDto.builder()
-        .currency(currency)
-        .balance(balance.doubleValue())
-        .available(available.doubleValue())
-        .address(address)
+        .currency(currency.toString())
+        .balance(balance)
+        .available(available)
+        .address(address.toString())
         .build();
   }
 

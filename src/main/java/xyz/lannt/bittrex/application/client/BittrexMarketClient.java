@@ -11,6 +11,7 @@ import xyz.lannt.bittrex.application.client.request.BittrexMarketRequest;
 import xyz.lannt.bittrex.application.client.request.MarketRequest;
 import xyz.lannt.bittrex.application.client.response.bittrex.BittrexBalancesResponse;
 import xyz.lannt.bittrex.application.client.response.bittrex.BittrexMarketSummariesResponse;
+import xyz.lannt.bittrex.application.client.response.bittrex.BittrexOrderHistoryResponse;
 import xyz.lannt.bittrex.application.exception.BittrexClientException;
 import xyz.lannt.bittrex.utils.EncryptionUtility;
 
@@ -45,7 +46,7 @@ public class BittrexMarketClient implements MarketClient {
     return url;
   }
 
-  private String request(String uri, BittrexMarketRequest request) {
+  protected String request(String uri, BittrexMarketRequest request) {
     if (request == null) {
       request = new BittrexMarketRequest(setting.getApiKey());
     }
@@ -59,5 +60,9 @@ public class BittrexMarketClient implements MarketClient {
 
   public BittrexMarketSummariesResponse getMarketSummaries() {
     return gson.fromJson(this.request("public/getmarketsummaries", null), BittrexMarketSummariesResponse.class);
+  }
+
+  public BittrexOrderHistoryResponse getOrderHistory() {
+    return gson.fromJson(this.request("account/getorderhistory", null), BittrexOrderHistoryResponse.class);
   }
 }

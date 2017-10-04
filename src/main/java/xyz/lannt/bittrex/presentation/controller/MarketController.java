@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import xyz.lannt.bittrex.application.service.MarketService;
+import xyz.lannt.bittrex.domain.vo.MarketNames;
 
 @Controller
 @RequestMapping("/market")
@@ -18,7 +19,7 @@ public class MarketController {
 
   @RequestMapping(value = "/summary", method = RequestMethod.GET)
   public ResponseEntity<?> getSummaries(String[] markets) {
-    return ResponseEntity.ok(marketService.getSummaries(markets));
+    return ResponseEntity.ok(marketService.getSummaries(new MarketNames(markets)));
   }
 
   @RequestMapping(value = "/summary/{market}", method = RequestMethod.GET)

@@ -3,7 +3,6 @@ package xyz.lannt.bittrex.domain.model;
 import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toList;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -13,6 +12,8 @@ import org.springframework.util.ObjectUtils;
 
 import lombok.AllArgsConstructor;
 import xyz.lannt.bittrex.application.client.response.bittrex.BittrexMarketSummariesResponse;
+import xyz.lannt.bittrex.domain.vo.CryptoText;
+import xyz.lannt.bittrex.domain.vo.MarketNames;
 import xyz.lannt.bittrex.presentation.dto.MarketSummaryDto;
 
 @AllArgsConstructor
@@ -21,8 +22,8 @@ public class MarketSummaries {
   private List<MarketSummary> values;
 
   public static MarketSummaries fromResponse(BittrexMarketSummariesResponse response) {
-    return response.result.stream()
-        .map(MarketSummary::fromLinkedTreeMap)
+    return response.getResult().stream()
+        .map(MarketSummary::fromResult)
         .collect(collectingAndThen(toList(), MarketSummaries::new));
   }
 
@@ -32,13 +33,13 @@ public class MarketSummaries {
         .findFirst();
   }
 
-  public MarketSummaries find(String[] markets) {
+  public MarketSummaries find(MarketNames markets) {
     if (ObjectUtils.isEmpty(markets)) {
       return this;
     }
 
     return values.stream()
-        .filter(e -> Arrays.asList(markets).contains(e.getName().toString()))
+        .filter(e -> markets.contains(e.getName().toString()))
         .collect(collectingAndThen(toList(), MarketSummaries::new));
   }
 
@@ -46,5 +47,12 @@ public class MarketSummaries {
     return values.stream()
         .map(MarketSummary::toDto)
         .collect(Collectors.toList());
+  }
+
+  public MarketNames getNames() {
+    return values.stream()
+        .map(MarketSummary::getName)
+        .map(CryptoText::toString)
+        .collect(collectingAndThen(toList(), MarketNames::new));
   }
 }

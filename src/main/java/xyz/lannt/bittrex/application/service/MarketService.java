@@ -9,6 +9,7 @@ import xyz.lannt.bittrex.application.client.BittrexMarketClient;
 import xyz.lannt.bittrex.application.exception.BittrexClientException;
 import xyz.lannt.bittrex.domain.model.MarketComapre;
 import xyz.lannt.bittrex.domain.model.MarketSummaries;
+import xyz.lannt.bittrex.domain.vo.MarketNames;
 import xyz.lannt.bittrex.presentation.dto.MarketCompareDto;
 import xyz.lannt.bittrex.presentation.dto.MarketSummaryDto;
 
@@ -20,10 +21,14 @@ public class MarketService {
   @Autowired
   private BittrexMarketClient bittrexMarketClient;
 
-  public List<MarketSummaryDto> getSummaries(String[] markets) {
-    return MarketSummaries.fromResponse(bittrexMarketClient.getMarketSummaries())
+  public List<MarketSummaryDto> getSummaries(MarketNames markets) {
+    return this.getSummaries()
         .find(markets)
         .toDtoes();
+  }
+
+  public MarketSummaries getSummaries() {
+    return MarketSummaries.fromResponse(bittrexMarketClient.getMarketSummaries());
   }
 
   public MarketSummaryDto getSummary(String market) {

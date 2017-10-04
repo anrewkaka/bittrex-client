@@ -25,4 +25,9 @@ public class AccountController {
   public ResponseEntity<?> getBalance(@PathVariable String currency) {
     return ResponseEntity.ok(accountService.getBalance(currency));
   }
+
+  @RequestMapping(value = "/profit/{baseCurrency}", method = RequestMethod.GET)
+  public ResponseEntity<?> getProfit(@PathVariable String baseCurrency) {
+    return ResponseEntity.ok(accountService.getProfit(baseCurrency));
+  }
 }

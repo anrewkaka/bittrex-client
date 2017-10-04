@@ -30,4 +30,8 @@ public class CryptoTimestamp {
     }
     return value.format(formatter);
   }
+
+  public LocalDateTime localDatetime() {
+    return LocalDateTime.parse(toString(), formatter);
+  }
 }

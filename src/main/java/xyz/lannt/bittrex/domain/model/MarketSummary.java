@@ -1,84 +1,81 @@
 package xyz.lannt.bittrex.domain.model;
 
-import com.google.gson.internal.LinkedTreeMap;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import xyz.lannt.bittrex.application.client.annotation.BittrexResponseName;
+import xyz.lannt.bittrex.application.client.response.bittrex.BittrexResult;
 import xyz.lannt.bittrex.domain.vo.CryptoText;
 import xyz.lannt.bittrex.domain.vo.CryptoTimestamp;
 import xyz.lannt.bittrex.domain.vo.CryptoValue;
 import xyz.lannt.bittrex.presentation.dto.MarketSummaryDto;
 
-@Builder
-@AllArgsConstructor
+@NoArgsConstructor
 public class MarketSummary {
 
   @Getter
+  @BittrexResponseName("MarketName")
   private CryptoText name;
 
+  @BittrexResponseName("Hight")
   private CryptoValue hight;
 
+  @BittrexResponseName("Low")
   private CryptoValue low;
 
+  @BittrexResponseName("Volume")
   private CryptoValue volume;
 
   @Getter
+  @BittrexResponseName("Last")
   private CryptoValue last;
 
+  @BittrexResponseName("BaseVolume")
   private CryptoValue baseVolume;
 
+  @BittrexResponseName("TimeStamp")
   private CryptoTimestamp timestamp;
 
   @Getter
+  @BittrexResponseName("Bid")
   private CryptoValue bid;
 
   @Getter
+  @BittrexResponseName("Ask")
   private CryptoValue ask;
 
+  @BittrexResponseName("OpenBuyOrders")
   private CryptoValue openBuyOrders;
 
+  @BittrexResponseName("OpenSellOrders")
   private CryptoValue openSellOrders;
 
+  @BittrexResponseName("PrevDay")
   private CryptoValue prevDay;
 
+  @BittrexResponseName("Created")
   private CryptoTimestamp created;
 
+  @BittrexResponseName("DisplayMarketName")
   private CryptoText displayMarketName;
 
-  public static MarketSummary fromLinkedTreeMap (LinkedTreeMap<String, Object> map) {
-    return MarketSummary.builder()
-        .name(CryptoText.create(map.get("MarketName")))
-        .hight(CryptoValue.create(map.get("Hight")))
-        .low(CryptoValue.create(map.get("Low")))
-        .volume(CryptoValue.create(map.get("Volume")))
-        .last(CryptoValue.create(map.get("Last")))
-        .baseVolume(CryptoValue.create(map.get("BaseVolume")))
-        .timestamp(CryptoTimestamp.create(map.get("TimeStamp")))
-        .bid(CryptoValue.create(map.get("Bid")))
-        .ask(CryptoValue.create(map.get("Ask")))
-        .openBuyOrders(CryptoValue.create(map.get("OpenBuyOrders")))
-        .openSellOrders(CryptoValue.create(map.get("OpenSellOrders")))
-        .prevDay(CryptoValue.create(map.get("PrevDay")))
-        .created(CryptoTimestamp.create(map.get("Created")))
-        .displayMarketName(CryptoText.create(map.get("DisplayMarketName")))
-        .build();
+  public static MarketSummary fromResult (BittrexResult result) {
+    return result.toModel(MarketSummary.class);
   }
 
   public MarketSummaryDto toDto() {
     return MarketSummaryDto.builder()
         .name(name.toString())
-        .hight(hight.doubleValue())
-        .low(low.doubleValue())
-        .volume(volume.doubleValue())
-        .last(last.doubleValue())
-        .baseVolume(baseVolume.doubleValue())
+        .hight(hight)
+        .low(low)
+        .volume(volume)
+        .last(last)
+        .baseVolume(baseVolume)
         .timestamp(timestamp.toString())
-        .bid(bid.doubleValue())
-        .ask(ask.doubleValue())
-        .openBuyOrders(openBuyOrders.doubleValue())
-        .openSellOrders(openSellOrders.doubleValue())
-        .prevDay(prevDay.doubleValue())
+        .bid(bid)
+        .ask(ask)
+        .openBuyOrders(openBuyOrders)
+        .openSellOrders(openSellOrders)
+        .prevDay(prevDay)
         .created(created.toString())
         .displayMarketName(displayMarketName.toString())
         .build();

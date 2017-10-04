@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface MarketQueryParam {
+public @interface BittrexResponseName {
 
   public String value() default "";
 }

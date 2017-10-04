@@ -3,6 +3,7 @@ package xyz.lannt.bittrex.presentation.dto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import xyz.lannt.bittrex.domain.vo.CryptoValue;
 
 @Data
 @Builder
@@ -11,11 +12,11 @@ public class BalanceDto {
 
   private String currency;
 
-  private Double balance;
+  private CryptoValue balance;
 
-  private Double available;
+  private CryptoValue available;
 
-  private Double pending;
+  private CryptoValue pending;
 
   private String address;
 

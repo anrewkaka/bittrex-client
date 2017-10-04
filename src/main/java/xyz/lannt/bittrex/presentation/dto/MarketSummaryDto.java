@@ -2,36 +2,43 @@ package xyz.lannt.bittrex.presentation.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import xyz.lannt.bittrex.domain.vo.CryptoValue;
 
+@Data
 @Builder
 @AllArgsConstructor
 public class MarketSummaryDto {
 
   public String name;
 
-  public Double hight;
+  public CryptoValue hight;
 
-  public Double low;
+  public CryptoValue low;
 
-  public Double volume;
+  public CryptoValue volume;
 
-  public Double last;
+  public CryptoValue last;
 
-  public Double baseVolume;
+  public CryptoValue baseVolume;
 
   public String timestamp;
 
-  public Double bid;
+  public CryptoValue bid;
 
-  public Double ask;
+  public CryptoValue ask;
 
-  public Double openBuyOrders;
+  public CryptoValue openBuyOrders;
 
-  public Double openSellOrders;
+  public CryptoValue openSellOrders;
 
-  public Double prevDay;
+  public CryptoValue prevDay;
 
   public String created;
 
   public String displayMarketName;
+
+  public String getNameRemoveBase(String baseCurrency) {
+    return name.replace("-", "").replace(baseCurrency, "");
+  }
 }
