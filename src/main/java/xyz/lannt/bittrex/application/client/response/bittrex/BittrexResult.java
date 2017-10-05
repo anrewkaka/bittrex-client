@@ -41,10 +41,6 @@ public class BittrexResult extends LinkedHashMap<String, Object> {
   private <T> void setDataToField(T model, Field field) {
     String bittrexResponseName = field.getAnnotation(BittrexResponseName.class).value();
     Object value = get(bittrexResponseName);
-    if (ObjectUtils.isEmpty(value)) {
-      return;
-    }
-
     Class type = field.getType();
     field.setAccessible(true);
     try {
