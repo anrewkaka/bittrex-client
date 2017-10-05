@@ -48,7 +48,7 @@ public class AccountService {
     MarketSummaries markets = marketService.getSummaries().find(balances.getMarketNames(baseCurrency));
     OrderHistories orders = orderService.getHistory().findLastedBuying(markets.getNames());
 
-    return balances.stream()
+    return balances.removeEmpty().stream()
         .filter(e -> e.nonBaseCurrency(baseCurrency))
         .map(e -> {
           String marketName = e.getMarketName(baseCurrency);
