@@ -49,6 +49,7 @@ public class AccountService {
     OrderHistories orders = orderService.getHistory().findLastedBuying(markets.getNames());
 
     return balances.removeEmpty().stream()
+        .filter(e -> !e.getCurrency().toString().equals("USDT"))
         .filter(e -> e.nonBaseCurrency(baseCurrency))
         .map(e -> {
           String marketName = e.getMarketName(baseCurrency);
