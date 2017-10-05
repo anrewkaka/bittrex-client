@@ -38,6 +38,7 @@ public class BittrexBalances {
 
   public MarketNames getMarketNames(String baseCurrency) {
     return values.stream()
+        .filter(e -> e.nonBaseCurrency(baseCurrency))
         .map(e -> e.getMarketName(baseCurrency))
         .collect(collectingAndThen(toList(), MarketNames::new));
   }

@@ -49,8 +49,10 @@ public class AccountService {
     OrderHistories orders = orderService.getHistory().findLastedBuying(markets.getNames());
 
     return balances.stream()
+        .filter(e -> e.nonBaseCurrency(baseCurrency))
         .map(e -> {
           String marketName = e.getMarketName(baseCurrency);
+System.err.println(marketName);
           return BalanceProfit.create(e, markets.find(marketName), orders.find(marketName).findLatest());
         })
         .map(BalanceProfit::toDto)

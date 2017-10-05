@@ -1,5 +1,7 @@
 package xyz.lannt.bittrex.domain.model;
 
+import org.apache.commons.lang3.StringUtils;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import xyz.lannt.bittrex.application.client.annotation.BittrexResponseName;
@@ -34,6 +36,10 @@ public class BittrexBalance {
 
   public String getMarketName(String baseCurrency) {
     return String.join("-", baseCurrency, currency.toString());
+  }
+
+  public boolean nonBaseCurrency(String baseCurrency) {
+    return !StringUtils.equals(currency.toString(), baseCurrency);
   }
 
   public BalanceDto toDto() {
