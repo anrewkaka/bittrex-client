@@ -4,5 +4,5 @@ server:
 # MARKET
 bittrex:
   baseUrl: https://bittrex.com/api/v1.1/
-  apiKey: efcb9a85db7d4ac38a28e35664a2f76e 
-  secret: 3968f9d44e7a40d781e93186c9b21b08
+  apiKey: ce72945d6c804707848e71d74bb391b7
+  secret: acf98dd9b9ca41a4a3492c498bb7b128
