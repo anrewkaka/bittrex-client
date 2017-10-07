@@ -39,10 +39,10 @@ public class OrderHistory {
   @BittrexResponseName("Commission")
   private CryptoValue commission;
 
-  @Getter
   @BittrexResponseName("Price")
   private CryptoValue price;
 
+  @Getter
   @BittrexResponseName("PricePerUnit")
   private CryptoValue pricePerUnit;
 

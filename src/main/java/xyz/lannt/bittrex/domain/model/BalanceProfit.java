@@ -8,7 +8,7 @@ import xyz.lannt.bittrex.presentation.dto.BalanceProfitDto;
 
 public class BalanceProfit {
 
-  private static double BITTREX_FEE = 0.0005;
+  private static double BITTREX_FEE = 0.5 / 100;
 
   private static final String ERROR_MESSAGE_MARKET_NOT_FOUND = "market not found!!";
 
@@ -36,13 +36,13 @@ public class BalanceProfit {
     }
 
     BalanceProfit balanceProfit = new BalanceProfit();
-    balanceProfit.name = market.get().getName().toString();
+    balanceProfit.name = balance.getCurrency().toString();
     balanceProfit.amount = balance.getBalance();
-    balanceProfit.buyPrice = CryptoValue.create(order.get().getPrice());
+    balanceProfit.buyPrice = CryptoValue.create(order.get().getPricePerUnit());
     balanceProfit.currentPrice = CryptoValue.create(market.get().getAsk());
 
     // profit = current - buy - exchange_fee
-    balanceProfit.profit = balanceProfit.currentPrice.subtract(balanceProfit.buyPrice).subtract(CryptoValue.create(BITTREX_FEE));
+    balanceProfit.profit = balanceProfit.currentPrice.subtract(balanceProfit.buyPrice).multiply(CryptoValue.create(1 - BITTREX_FEE));
     // profitInPercentage = profit / current * 100
     balanceProfit.profitInPercentage = balanceProfit.profit.divide(balanceProfit.buyPrice).multiply(CryptoValue.create(100));
 

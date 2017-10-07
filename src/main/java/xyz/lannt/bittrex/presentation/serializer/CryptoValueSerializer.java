@@ -13,6 +13,6 @@ public class CryptoValueSerializer implements JsonSerializer<CryptoValue> {
 
   @Override
   public JsonElement serialize(CryptoValue src, Type typeOfSrc, JsonSerializationContext context) {
-    return new JsonPrimitive(src.doubleValue());
+    return new JsonPrimitive(src.toString());
   }
 }

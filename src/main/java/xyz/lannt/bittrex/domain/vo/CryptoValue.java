@@ -2,6 +2,7 @@ package xyz.lannt.bittrex.domain.vo;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 import org.springframework.util.ObjectUtils;
 
@@ -70,6 +71,12 @@ public class CryptoValue {
     if (ObjectUtils.isEmpty(value)) {
       return "";
     }
-    return value.toString();
+
+    DecimalFormat df = new DecimalFormat();
+    df.setMaximumFractionDigits(8);
+    df.setMinimumFractionDigits(8);
+    df.setGroupingUsed(false);
+
+    return df.format(value);
   }
 }
