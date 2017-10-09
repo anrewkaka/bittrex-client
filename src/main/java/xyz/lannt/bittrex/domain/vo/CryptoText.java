@@ -1,5 +1,6 @@
 package xyz.lannt.bittrex.domain.vo;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.ObjectUtils;
 
 public class CryptoText {
@@ -18,5 +19,10 @@ public class CryptoText {
       return "";
     }
     return value;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    return StringUtils.equals(value, String.valueOf(obj));
   }
 }

@@ -11,8 +11,9 @@ import xyz.lannt.bittrex.application.client.BittrexMarketClient;
 import xyz.lannt.bittrex.application.exception.BittrexClientException;
 import xyz.lannt.bittrex.domain.model.BalanceProfit;
 import xyz.lannt.bittrex.domain.model.BittrexBalances;
+import xyz.lannt.bittrex.domain.model.CurrencyPrices;
 import xyz.lannt.bittrex.domain.model.MarketSummaries;
-import xyz.lannt.bittrex.domain.model.OrderHistories;
+import xyz.lannt.bittrex.infrastructure.repository.ExchangeRepository;
 import xyz.lannt.bittrex.presentation.dto.BalanceDto;
 import xyz.lannt.bittrex.presentation.dto.BalanceProfitDto;
 
@@ -28,7 +29,7 @@ public class AccountService {
   private MarketService marketService;
 
   @Autowired
-  private OrderService orderService;
+  private ExchangeRepository exchangeRepository;
 
   public List<BalanceDto> getBalances() {
     return BittrexBalances.fromResponse(bittrexMarketClient.getBalances())
@@ -46,14 +47,14 @@ public class AccountService {
   public List<BalanceProfitDto> getProfit(String baseCurrency) {
     BittrexBalances balances = BittrexBalances.fromResponse(bittrexMarketClient.getBalances());
     MarketSummaries markets = marketService.getSummaries().find(balances.getMarketNames(baseCurrency));
-    OrderHistories orders = orderService.getHistory().findLastedBuying(markets.getNames());
+    CurrencyPrices currencyPrices = exchangeRepository.multiGet("bittrex", balances.getCurrencies());
 
     return balances.removeEmpty().stream()
         .filter(e -> !e.getCurrency().toString().equals("USDT"))
         .filter(e -> e.nonBaseCurrency(baseCurrency))
         .map(e -> {
           String marketName = e.getMarketName(baseCurrency);
-          return BalanceProfit.create(e, markets.find(marketName), orders.find(marketName).findLatest());
+          return BalanceProfit.create(e, markets.find(marketName), currencyPrices.find(e.getCurrency()));
         })
         .map(BalanceProfit::toDto)
         .collect(toList());

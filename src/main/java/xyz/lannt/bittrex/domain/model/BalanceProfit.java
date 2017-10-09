@@ -12,7 +12,7 @@ public class BalanceProfit {
 
   private static final String ERROR_MESSAGE_MARKET_NOT_FOUND = "market not found!!";
 
-  private static final String ERROR_MESSAGE_ORDER_NOT_FOUND = "order not found!!";
+  private static final String ERROR_MESSAGE_PRICE_NOT_FOUND = "order not found!!";
 
   private String name;
 
@@ -26,19 +26,19 @@ public class BalanceProfit {
 
   private CryptoValue profitInPercentage;
 
-  public static BalanceProfit create(BittrexBalance balance, Optional<MarketSummary> market, Optional<OrderHistory> order) {
+  public static BalanceProfit create(BittrexBalance balance, Optional<MarketSummary> market, Optional<CurrencyPrice> price) {
     if (!market.isPresent()) {
       throw new BittrexClientException(ERROR_MESSAGE_MARKET_NOT_FOUND);
     }
 
-    if (!order.isPresent()) {
-      throw new BittrexClientException(ERROR_MESSAGE_ORDER_NOT_FOUND);
+    if (!price.isPresent()) {
+      throw new BittrexClientException(ERROR_MESSAGE_PRICE_NOT_FOUND);
     }
 
     BalanceProfit balanceProfit = new BalanceProfit();
     balanceProfit.name = balance.getCurrency().toString();
     balanceProfit.amount = balance.getBalance();
-    balanceProfit.buyPrice = CryptoValue.create(order.get().getPricePerUnit());
+    balanceProfit.buyPrice = price.get().getPrice();
     balanceProfit.currentPrice = CryptoValue.create(market.get().getAsk());
 
     // profit = current - buy - exchange_fee
