@@ -13,7 +13,11 @@ public class ExchangeService {
   @Autowired
   private ExchangeRepository exchangeRepository;
 
-  public void setPrice(String exchange, String currency, CryptoValue price) {
-    exchangeRepository.set(exchange, new CurrencyPrice(currency, price));
+  public void setPrice(String exchange, CurrencyPrice price) {
+    exchangeRepository.set(exchange, price);
+  }
+
+  public CryptoValue getPrice(String exchange, String currency) {
+    return exchangeRepository.get(exchange, currency).priceInAverage();
   }
 }

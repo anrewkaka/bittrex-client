@@ -62,6 +62,10 @@ public class CryptoValue {
     return new CryptoValue(value.divide(target.value, 8, RoundingMode.HALF_UP));
   }
 
+  public CryptoValue add(CryptoValue target) {
+    return new CryptoValue(value.add(target.value));
+  }
+
   public CryptoValue subtract(CryptoValue target) {
     return new CryptoValue(value.subtract(target.value));
   }

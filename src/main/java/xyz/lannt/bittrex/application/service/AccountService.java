@@ -50,7 +50,7 @@ public class AccountService {
     CurrencyPrices currencyPrices = exchangeRepository.multiGet("bittrex", balances.getCurrencies());
 
     return balances.removeEmpty().stream()
-        .filter(e -> !e.getCurrency().toString().equals("USDT"))
+        .filter(e -> !e.getCurrency().toString().equals(baseCurrency.equals("BTC") ? "USDT" : "BTC"))
         .filter(e -> e.nonBaseCurrency(baseCurrency))
         .map(e -> {
           String marketName = e.getMarketName(baseCurrency);

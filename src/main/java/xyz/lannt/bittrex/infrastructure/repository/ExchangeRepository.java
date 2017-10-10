@@ -25,7 +25,6 @@ public class ExchangeRepository {
         .map(e -> get(exchange, e))
         .reduce((e1, e2) -> e1.merge(e2))
         .get();
-    
   }
 
   public CurrencyPrices get(String exchange, String currency) {
@@ -35,10 +34,10 @@ public class ExchangeRepository {
   }
 
   public void set(String exchange, CurrencyPrice value) {
-    redisTemplate.opsForHash().put(createKey(exchange, value.getName().toString()), value.getDatetime(), value.getPrice().toString());
+    redisTemplate.opsForHash().put(createKey(exchange, value.getName().toString()), value.getDatetime().toString(), value.getPrice().toString());
   }
 
   private String createKey(String exchange, String currency) {
-    return String.join(":", "prices", exchange, "currency");
+    return String.join(":", "prices", exchange, currency);
   }
 }

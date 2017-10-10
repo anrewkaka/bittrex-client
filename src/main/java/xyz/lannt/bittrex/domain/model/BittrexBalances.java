@@ -32,7 +32,7 @@ public class BittrexBalances {
 
   public String[] getCurrencies() {
     return values.stream()
-        .map(e -> e.getCurrency())
+        .map(e -> e.getCurrency().toString())
         .toArray(size -> new String[size]);
   }
 

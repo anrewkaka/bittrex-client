@@ -11,6 +11,12 @@ public class CryptoTimestamp {
 
   private LocalDateTime value;
 
+  public static CryptoTimestamp now() {
+    CryptoTimestamp result = new CryptoTimestamp();
+    result.value = LocalDateTime.now();
+    return result;
+  }
+
   public static CryptoTimestamp create(Object value) {
     CryptoTimestamp result = new CryptoTimestamp();
 
