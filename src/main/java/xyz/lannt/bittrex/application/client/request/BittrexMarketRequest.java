@@ -1,13 +1,9 @@
 package xyz.lannt.bittrex.application.client.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import xyz.lannt.bittrex.application.client.annotation.MarketQueryParam;
 
 @Data
-@Builder
-@AllArgsConstructor
 public class BittrexMarketRequest implements MarketRequest {
 
   @MarketQueryParam("apiKey")

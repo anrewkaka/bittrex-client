@@ -8,10 +8,12 @@ import org.springframework.util.ObjectUtils;
 import com.google.gson.Gson;
 
 import xyz.lannt.bittrex.application.client.request.BittrexMarketRequest;
+import xyz.lannt.bittrex.application.client.request.BittrexSellingRequest;
 import xyz.lannt.bittrex.application.client.request.MarketRequest;
 import xyz.lannt.bittrex.application.client.response.bittrex.BittrexBalancesResponse;
 import xyz.lannt.bittrex.application.client.response.bittrex.BittrexMarketSummariesResponse;
 import xyz.lannt.bittrex.application.client.response.bittrex.BittrexOrderHistoryResponse;
+import xyz.lannt.bittrex.application.client.response.bittrex.BittrexSellingResponse;
 import xyz.lannt.bittrex.application.exception.BittrexClientException;
 import xyz.lannt.bittrex.utils.EncryptionUtility;
 
@@ -64,5 +66,9 @@ public class BittrexMarketClient implements MarketClient {
 
   public BittrexOrderHistoryResponse getOrderHistory() {
     return gson.fromJson(this.request("account/getorderhistory", null), BittrexOrderHistoryResponse.class);
+  }
+
+  public BittrexSellingResponse sell(BittrexSellingRequest request) {
+    return gson.fromJson(this.request("market/selllimit", request), BittrexSellingResponse.class);
   }
 }

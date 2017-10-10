@@ -37,6 +37,9 @@ public class FakeBittrexMarketClient extends BittrexMarketClient {
       case "account/getorderhistory":
         fileName = "FakeBittrexMarketClient_getOrderHistory.json";
         break;
+      case "market/selllimit":
+        fileName = "FakeBittrexMarketClient_sell.json";
+        break;
       default:
         fileName = "";
         break;

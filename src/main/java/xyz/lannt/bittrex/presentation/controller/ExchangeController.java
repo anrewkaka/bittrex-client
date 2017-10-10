@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import xyz.lannt.bittrex.application.service.ExchangeService;
 import xyz.lannt.bittrex.domain.model.CurrencyPrice;
 import xyz.lannt.bittrex.presentation.dto.CurrencyPriceRegistrationDto;
+import xyz.lannt.bittrex.presentation.dto.CurrencySellDto;
 
 @Controller
 @RequestMapping("/exchange")
@@ -31,13 +32,7 @@ public class ExchangeController {
   }
 
   @RequestMapping(value = "/{exchange}/sell", method = RequestMethod.POST)
-  public ResponseEntity<?> sell(@PathVariable String exchange, @RequestBody CurrencyPriceRegistrationDto price) {
-    try {
-      Thread.sleep(5000);
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    return ResponseEntity.ok().build();
+  public ResponseEntity<?> sell(@PathVariable String exchange, @RequestBody CurrencySellDto dto) {
+    return ResponseEntity.ok(exchangeService.sell(dto));
   }
 }
