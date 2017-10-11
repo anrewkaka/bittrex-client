@@ -11,7 +11,9 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import xyz.lannt.bittrex.domain.vo.CryptoText;
 import xyz.lannt.bittrex.domain.vo.CryptoValue;
+import xyz.lannt.bittrex.presentation.serializer.CryptoTextSerializer;
 import xyz.lannt.bittrex.presentation.serializer.CryptoValueSerializer;
 
 @Configuration
@@ -22,6 +24,7 @@ public class GsonConfig extends GsonAutoConfiguration {
   public Gson gson() {
     return new GsonBuilder()
         .registerTypeAdapter(CryptoValue.class, new CryptoValueSerializer())
+        .registerTypeAdapter(CryptoText.class, new CryptoTextSerializer())
         .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
         .create();
   }

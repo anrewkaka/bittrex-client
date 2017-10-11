@@ -25,6 +25,17 @@ public class ExchangeController {
     return ResponseEntity.ok(exchangeService.getPrice(exchange, currency));
   }
 
+  @RequestMapping(value = "/price/{exchange}/{currency}", method = RequestMethod.DELETE)
+  public ResponseEntity<?> deletePrice(@PathVariable String exchange, @PathVariable String currency) {
+    exchangeService.deletePrice(exchange, currency);
+    return ResponseEntity.ok().build();
+  }
+
+  @RequestMapping(value = "/price/{exchange}", method = RequestMethod.GET)
+  public ResponseEntity<?> getPrices(@PathVariable String exchange) {
+    return ResponseEntity.ok(exchangeService.getPrices(exchange));
+  }
+
   @RequestMapping(value = "/price/{exchange}", method = RequestMethod.PUT)
   public ResponseEntity<?> setPrice(@PathVariable String exchange, @RequestBody CurrencyPriceRegistrationDto price) {
     exchangeService.setPrice(exchange, CurrencyPrice.fromDto(price));

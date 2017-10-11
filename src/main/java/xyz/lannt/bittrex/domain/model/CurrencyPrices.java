@@ -1,8 +1,10 @@
 package xyz.lannt.bittrex.domain.model;
 
 import static java.util.stream.Collectors.collectingAndThen;
+import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
@@ -12,6 +14,7 @@ import org.springframework.util.ObjectUtils;
 import lombok.AllArgsConstructor;
 import xyz.lannt.bittrex.domain.vo.CryptoText;
 import xyz.lannt.bittrex.domain.vo.CryptoValue;
+import xyz.lannt.bittrex.presentation.dto.CurrencyPriceDetailDto;
 
 @AllArgsConstructor
 public class CurrencyPrices {
@@ -19,6 +22,10 @@ public class CurrencyPrices {
   private static double BITTREX_FEE = 0.25 / 100;
 
   private List<CurrencyPrice> values;
+
+  public CurrencyPrices() {
+    values = new ArrayList<>();
+  }
 
   public Stream<CurrencyPrice> stream() {
     return values.stream();
@@ -53,5 +60,14 @@ public class CurrencyPrices {
 
   public boolean isEmpty() {
     return ObjectUtils.isEmpty(values);
+  }
+
+  public List<CurrencyPriceDetailDto> toDtoes() {
+    return stream()
+        .collect(groupingBy(CurrencyPrice::getNameAsString, collectingAndThen(toList(), CurrencyPrices::new)))
+        .entrySet().stream()
+        .map(CurrencyPrice::fromEntrySet)
+        .map(CurrencyPrice::toDto)
+        .collect(toList());
   }
 }
