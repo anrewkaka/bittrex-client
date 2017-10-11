@@ -12,6 +12,7 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
 apply plugin: 'org.springframework.boot'
 
 group = 'xyz.lannt'
@@ -22,6 +23,17 @@ repositories {
   mavenCentral()
 }
 
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId 'xyz.lannt.sample'
+            artifactId 'project1-sample'
+            version '1.1'
+
+            from components.java
+        }
+    }
+}
 
 dependencies {
   compile(
