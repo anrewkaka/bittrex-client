@@ -1,7 +1,8 @@
-package xyz.lannt.market.request;
+package xyz.lannt.market.request.bittrex;
 
 import lombok.Data;
 import xyz.lannt.annotation.MarketQueryParam;
+import xyz.lannt.market.request.MarketRequest;
 
 @Data
 public class BittrexMarketRequest implements MarketRequest {

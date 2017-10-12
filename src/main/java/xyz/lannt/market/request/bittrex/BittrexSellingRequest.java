@@ -1,4 +1,4 @@
-package xyz.lannt.market.request;
+package xyz.lannt.market.request.bittrex;
 
 import lombok.Builder;
 import lombok.Getter;

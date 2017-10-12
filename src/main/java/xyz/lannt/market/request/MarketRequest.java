@@ -8,7 +8,7 @@ import java.util.List;
 import org.springframework.util.ObjectUtils;
 
 import xyz.lannt.annotation.MarketQueryParam;
-import xyz.lannt.exception.BittrexClientException;
+import xyz.lannt.exception.MarketClientException;
 
 public interface MarketRequest {
 
@@ -61,7 +61,7 @@ public interface MarketRequest {
     try {
       fieldData = field.get(this);
     } catch (IllegalArgumentException | IllegalAccessException e) {
-      throw new BittrexClientException(e);
+      throw new MarketClientException(e);
     }
     if (fieldData == null) {
       return null;

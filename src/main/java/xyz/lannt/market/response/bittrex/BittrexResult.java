@@ -7,11 +7,11 @@ import java.util.List;
 
 import com.google.gson.internal.LinkedTreeMap;
 
-import xyz.lannt.annotation.BittrexResponseName;
+import xyz.lannt.annotation.MarketResponseName;
 import xyz.lannt.domain.vo.CryptoText;
 import xyz.lannt.domain.vo.CryptoTimestamp;
 import xyz.lannt.domain.vo.CryptoValue;
-import xyz.lannt.exception.BittrexClientException;
+import xyz.lannt.exception.MarketClientException;
 
 public class BittrexResult extends LinkedHashMap<String, Object> {
 
@@ -26,7 +26,7 @@ public class BittrexResult extends LinkedHashMap<String, Object> {
     try {
       model = target.newInstance();
     } catch (InstantiationException | IllegalAccessException e) {
-      throw new BittrexClientException(e);
+      throw new MarketClientException(e);
     }
 
     for (Field field : getFields(target)) {
@@ -37,7 +37,7 @@ public class BittrexResult extends LinkedHashMap<String, Object> {
   }
 
   private <T> void setDataToField(T model, Field field) {
-    String bittrexResponseName = field.getAnnotation(BittrexResponseName.class).value();
+    String bittrexResponseName = field.getAnnotation(MarketResponseName.class).value();
     Object value = get(bittrexResponseName);
     Class type = field.getType();
     field.setAccessible(true);
@@ -50,7 +50,7 @@ public class BittrexResult extends LinkedHashMap<String, Object> {
         field.set(model, CryptoTimestamp.create(value));
       }
     } catch (IllegalArgumentException | IllegalAccessException e) {
-      throw new BittrexClientException(e);
+      throw new MarketClientException(e);
     }
 
   }

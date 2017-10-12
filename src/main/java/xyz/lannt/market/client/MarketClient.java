@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
-import xyz.lannt.exception.BittrexClientException;
+import xyz.lannt.exception.MarketClientException;
 import xyz.lannt.market.request.MarketRequest;
 import xyz.lannt.market.response.MarketResponse;
 
@@ -21,7 +21,7 @@ public interface MarketClient {
 
     ResponseEntity<String> response = restTemplate.exchange(url, method, new HttpEntity<>(headers), String.class);
     if (response.getStatusCode() != HttpStatus.OK) {
-      throw new BittrexClientException();
+      throw new MarketClientException();
     }
 
     return response.getBody();

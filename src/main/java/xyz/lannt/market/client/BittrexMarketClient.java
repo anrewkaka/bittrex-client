@@ -7,9 +7,9 @@ import org.springframework.util.ObjectUtils;
 
 import com.google.gson.Gson;
 
-import xyz.lannt.exception.BittrexClientException;
-import xyz.lannt.market.request.BittrexMarketRequest;
+import xyz.lannt.exception.MarketClientException;
 import xyz.lannt.market.request.MarketRequest;
+import xyz.lannt.market.request.bittrex.BittrexMarketRequest;
 import xyz.lannt.market.response.MarketResponse;
 import xyz.lannt.market.response.bittrex.BittrexBalancesResponse;
 import xyz.lannt.market.response.bittrex.BittrexBuyingResponse;
@@ -43,7 +43,7 @@ public class BittrexMarketClient implements MarketClient {
         url += "?" + request.toQueryParam();
       }
     } catch (IllegalAccessException e) {
-      throw new BittrexClientException(e);
+      throw new MarketClientException(e);
     }
 
     return url;
