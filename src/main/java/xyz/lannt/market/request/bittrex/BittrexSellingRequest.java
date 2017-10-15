@@ -2,8 +2,10 @@ package xyz.lannt.market.request.bittrex;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
 public class BittrexSellingRequest extends BittrexMarketRequest {
 
   @Getter @Setter
@@ -13,9 +15,9 @@ public class BittrexSellingRequest extends BittrexMarketRequest {
   private String rate;
 
   @Builder
-  public BittrexSellingRequest(String apiKey, String market, String quantity, String rate) {
+  public BittrexSellingRequest(String apiKey, String currency, String quantity, String rate) {
     super(apiKey);
-    setMarket(market);
+    setCurrency(currency);
     this.quantity = quantity;
     this.rate = rate;
   }
