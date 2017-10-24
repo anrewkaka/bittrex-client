@@ -2,23 +2,25 @@ package xyz.lannt.market.request.bittrex;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import xyz.lannt.annotation.MarketQueryParam;
 
-@NoArgsConstructor
 public class BittrexSellingRequest extends BittrexMarketRequest {
 
   @Getter @Setter
+  @MarketQueryParam("quantity")
   private String quantity;
 
   @Getter @Setter
+  @MarketQueryParam("rate")
   private String rate;
 
+  @Getter @Setter
+  @MarketQueryParam("market")
+  private String market;
+
   @Builder
-  public BittrexSellingRequest(String apiKey, String currency, String quantity, String rate) {
+  public BittrexSellingRequest(String apiKey) {
     super(apiKey);
-    setCurrency(currency);
-    this.quantity = quantity;
-    this.rate = rate;
   }
 }

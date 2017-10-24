@@ -31,7 +31,7 @@ public class MarketRequestSellingFactory {
     }
 
     if (Market.BITTREX.equals(market)) {
-      BittrexSellingRequest request = new BittrexSellingRequest();
+      BittrexSellingRequest request = new BittrexSellingRequest(apiKey);
       BeanUtils.copyProperties(dto, request);
       return request;
     }
