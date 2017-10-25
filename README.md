@@ -1,2 +1,2 @@
-# bittrex-client
-bittrex client
+# market-client
+this is the abstraction of market-client
