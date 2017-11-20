@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
 @AllArgsConstructor
 public enum Market {
   BITTREX("bittrex"),
