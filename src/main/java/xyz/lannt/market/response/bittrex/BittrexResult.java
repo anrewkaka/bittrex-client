@@ -1,9 +1,12 @@
 package xyz.lannt.market.response.bittrex;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.springframework.util.ObjectUtils;
 
 import com.google.gson.internal.LinkedTreeMap;
 
@@ -56,11 +59,8 @@ public class BittrexResult extends LinkedHashMap<String, Object> {
   }
 
   private List<Field> getFields(Class<?> clazz) {
-    List<Field> fields = new ArrayList<Field>();
-    for (Field field : clazz.getDeclaredFields()) {
-      fields.add(field);
-    }
-
-    return fields;
+    return Stream.of(clazz.getDeclaredFields())
+        .filter(e -> !ObjectUtils.isEmpty(e.getAnnotation(MarketResponseName.class)))
+        .collect(Collectors.toList());
   }
 }
