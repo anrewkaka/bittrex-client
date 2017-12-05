@@ -37,6 +37,15 @@ public class CryptoTimestamp {
     return value.format(formatter);
   }
 
+  public CryptoTimestamp truncateMilisecond() {
+    if (this.value == null) {
+      return null;
+    }
+
+    this.value = this.value.withNano(0);
+    return this;
+  }
+
   public LocalDateTime localDatetime() {
     return LocalDateTime.parse(toString(), formatter);
   }
